@@ -1,0 +1,15 @@
+body {
+    background-color: white;
+}
+
+h1 {
+    color: black;
+}
+
+$primary: #3F88c5;
+$danger: #0000;
+$secondary:#FDFFFC;
+$light: #020887;
+
+
+@import "~bootstrap/scss/bootstrap";
