@@ -1,9 +1,26 @@
 {% extends "base.html.twig" %}
-{% block title %}Wild Series{% endblock %}
+{% block title %}All programs{% endblock %}
 {% block header %}
 {% endblock %}
 
 {% block body %} 
-   <h1> {{ website }} </h1>
-<img src="{{ asset('build/images/hello-world.png') }}" alt="logo">
+ <a href="{{ path('category_index') }}">
+        Category
+    </a>
+
+   <h1> Toutes les Series de la table program : </h1>
+   {% for program in programs %}
+   <div> 
+      <h2>{{ loop.index }} / {{ program.title }} - Category : {{ program.category.name }}</h2>
+      <p> {{ program.summary }}</p>
+       <a href="{{ path("program_show", { id: program.id }) }}">Voir la fiche</a>
+   </div>
+   {% else %}
+        Aucune série trouvée.
+    {% endfor %}
+
+    <a href="{{ path('app_index') }}">
+        Retour à l'accueil
+    </a>
+
 {% endblock %}

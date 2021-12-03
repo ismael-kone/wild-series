@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+
+{# {% block title %} Série #{{programs.category_id}} {% endblock %} #}
+
+{% block body %}
+
+    {% for program in programs %}
+        <div>
+            <a href="{{path("program_show", {id: program.id}) }}">
+                <h1>
+                    {{program.title}}</h1>
+            </a>
+            <p>
+                {{program.summary}}</p>
+        </div>
+    {% endfor %}
+
+
+{% endblock %}
