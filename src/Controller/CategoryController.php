@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Entity\Program;
 use App\Entity\Category;
+use App\Form\CategoryType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,7 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CategoryController extends AbstractController
 {
-    /** 
+    /**
     * @Route("/", name="index")
     * @return Response A response instance
 
@@ -36,12 +37,10 @@ class CategoryController extends AbstractController
        ]);
    }
 
-
-
-   /** 
+   /**
 
     * @Route("/{categoryName}", methods={"GET"}, name="show")
-    * @return Response 
+    * @return Response
 
     */
 
@@ -57,16 +56,24 @@ class CategoryController extends AbstractController
            ->getRepository(Program::class)
            ->findBy(['category' => $category], ['id' => 'desc'], 3);
 
-       if (!$programs) {
-           throw $this->createNotFoundException(
-               'Aucune série trouvée.'
-           );
-       }
-
        return $this->render('category/show.html.twig', [
 
            'programs' => $programs,
 
+       ]);
+   }
+   /**
+    * The Controller for the category add form
+    *
+    * @Route("/new", name="new")
+    * @return Response
+    */
+   public function Form(): Response
+   {
+       $category = new Category();
+       $form = $this->createForm(CategoryType::class, $category);
+       return $this->render('category/new.html.twig', [
+           "form" => $form->createView(),
        ]);
    }
 }
